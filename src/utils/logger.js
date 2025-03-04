@@ -8,7 +8,7 @@ export const logger = winston.createLogger({
         winston.format.errors({stack: true}),
         winston.format.splat()
     ),
-    defautlMeta: { service: "identity-service" },
+    defautlMeta: { service: "api-gateway-service" },
     transports: [   
         new winston.transports.Console({
             format: winston.format.combine(
