@@ -1,5 +1,9 @@
 import proxy from "express-http-proxy"
 import { logger } from "../utils/logger.js"
+import dotenv from "dotenv"
+dotenv.config({
+    path: "./.env"
+})
 
 const commonProxyOptions = {
     proxyReqPathResolver: (req) => {
@@ -24,7 +28,6 @@ const authServiceProxyOptions = {
         logger.info(
           `Response received from Identity service: ${proxyRes.statusCode}`
         );
-  
         return proxyResData;
       },
 }
@@ -34,7 +37,6 @@ const postServiceProxyOptions = {
     proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
         proxyReqOpts.headers["Content-Type"] = "application/json";
         proxyReqOpts.headers["x-user-id"] = srcReq.user.userId;
-  
         return proxyReqOpts;
       },
       userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
